@@ -1,0 +1,20 @@
+{
+    "name": "lazaroestrada/app-salon",
+    "description": "PHP project MVC",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "MVC\\" : "./",
+            "Controllers\\" :"./controllers",
+            "Model\\" : "./models",
+            "Lazaroestrada\\AppSalon\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "FerchoChainz",
+            "email": "a21110132@ceti.mx"
+        }
+    ],
+    "require": {}
+}

@@ -1,6 +1,6 @@
 <?php 
 
-$db = mysqli_connect('localhost', 'root', '' , 'BarberStore');
+$db = mysqli_connect('localhost', 'root', '' , '');
 
 if(!$db){
     echo 'Error al intentar la conexion de la base de datos';

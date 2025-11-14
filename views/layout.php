@@ -5,11 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BaberStore</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;700;900&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="../build/css/app.css">
 </head>
 <body>
+    <div class="contenedor-app">
+        <div class="imagen"></div>
+        <div class="app">
+            <?php echo $content; ?>
+        </div>
+    </div>
 
-<?php echo $content; ?>
-<h1>HOLA MUNDO</h1>
     
 </body>
 </html>
