@@ -1,6 +1,6 @@
 <?php 
 
-$db = mysqli_connect('localhost', 'root', '' , '');
+$db = mysqli_connect('localhost', 'root', '' , 'MVC_appsalon');
 
 if(!$db){
     echo 'Error al intentar la conexion de la base de datos';

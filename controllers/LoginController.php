@@ -1,6 +1,8 @@
 <?php 
 namespace Controllers;
 
+use Classes\Email;
+use Model\User;
 use MVC\Router;
 
 class LoginController {
@@ -22,7 +24,45 @@ class LoginController {
     }
 
     public static function createAccount(Router $router){
+        $user = new User();
 
-        $router->render('auth/create-account',[]);
+        // errors
+        $errors = [];
+
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+            $user->sync($_POST);
+            $errors = $user->validateNewAccount();
+
+            // check if errors is empty
+            if(empty($errors)){
+                // check if user is not registered 
+                $resultado = $user->userExist();
+
+                if($resultado->num_rows){
+                    $errors = User::getErrors();
+                } else {
+                    // hash password
+                    $user->hashPassword();
+
+                    // generate unique token
+                    $user->createToken();
+
+                    // send email
+                    $email = new Email(
+                        $user->nombre, $user->email,$user->token
+                    );
+
+                    $email->sendConfirmation();
+
+                    debbuger($email);
+                }
+
+            }
+        }
+
+        $router->render('auth/create-account',[
+            'user' => $user,
+            'errors' =>$errors
+        ]);
     }
 }

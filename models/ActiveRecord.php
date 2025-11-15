@@ -131,6 +131,10 @@ class ActiveRecord{
     {
         return static::$errors;
     }
+
+    public static function setErrors($type, $message){
+        static::$errors[$type][] =  $message;
+    }
     
     public function validate()
     {

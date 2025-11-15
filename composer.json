@@ -7,7 +7,8 @@
             "MVC\\" : "./",
             "Controllers\\" :"./controllers",
             "Model\\" : "./models",
-            "Lazaroestrada\\AppSalon\\": "src/"
+            "Lazaroestrada\\AppSalon\\": "src/",
+            "Classes\\" : "./classes" 
         }
     },
     "authors": [
@@ -16,5 +17,7 @@
             "email": "a21110132@ceti.mx"
         }
     ],
-    "require": {}
+    "require": {
+        "phpmailer/phpmailer": "^7.0"
+    }
 }
