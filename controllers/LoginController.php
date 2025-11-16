@@ -54,7 +54,12 @@ class LoginController {
 
                     $email->sendConfirmation();
 
-                    debbuger($email);
+
+                    // create user
+                    $resultado = $user->saveData();
+                    if($resultado){
+                        header('Location: /message');
+                    }
                 }
 
             }
@@ -64,5 +69,36 @@ class LoginController {
             'user' => $user,
             'errors' =>$errors
         ]);
+    }
+
+    public static function message(Router $router){
+        $router->render('auth/message'); 
+    }
+
+    public static function confirmAccount(Router $router){
+        $errors = [];
+
+        $token = s($_GET['token']);
+
+        $user = User::where('token', $token);
+
+        if(empty($user)){
+            // show error message
+            User::setErrors('error', 'Invalid Token');
+        } else {
+            // show succes message
+            $user->confirmado = '1';
+            $user->token = null;
+            $user->saveUpdate();
+
+
+            User::setErrors('succes', 'Tu cuenta ha sido confirmada. Gracias');
+        }
+
+        $errors = User::getErrors();
+        $router->render('auth/confirm-account',[
+            'errors' => $errors
+        ]);
+
     }
 }

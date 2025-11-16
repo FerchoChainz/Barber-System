@@ -54,11 +54,6 @@ class ActiveRecord{
         $query .= " LIMIT 1";
 
         $result = self::$db->query($query);
-
-        if ($result) {
-            header('Location: /admin?result=2');
-        }
-
         return $result;
     }
 
@@ -81,10 +76,10 @@ class ActiveRecord{
 
 
         $result = self::$db->query($query);
-        if ($result) {
-            // Redirection
-            header('location: /admin?result=1');
-        }
+       return [
+        'result' => $result,
+        'id' => self::$db->insert_id
+       ];
         // debbuger($result)
     }
 
@@ -94,11 +89,7 @@ class ActiveRecord{
         $query = " DELETE FROM " . static::$table  . " WHERE id = " . self::$db->escape_string($this->id) . " LIMIT 1";
 
         $result = self::$db->query($query);
-
-        if($result){
-            $this->deleteImage();
-            header('Location: /admin?result=3');
-        }
+        return $result;
     }
 
     // identify and join atributes of DB
@@ -120,7 +111,7 @@ class ActiveRecord{
         $sanitized = [];
 
         foreach ($atributes as $key => $value) {
-            $sanitized[$key] = self::$db->escape_string($value);
+            $sanitized[$key] = self::$db->escape_string($value ?? '');
         }
 
         return $sanitized;
@@ -197,8 +188,16 @@ class ActiveRecord{
 
         // re-use the methods to convert arrays to objects
         $result = self::consultSQL($query);
+        return (array_shift($result));
+    }
 
+    // search a register by ID
+    public static function where($col,$value)
+    {
+        $query = "SELECT * FROM " . static::$table  . " WHERE $col = '$value' ";
 
+        // re-use the methods to convert arrays to objects
+        $result = self::consultSQL($query);
         return (array_shift($result));
     }
 

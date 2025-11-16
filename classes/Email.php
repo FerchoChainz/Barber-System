@@ -45,6 +45,6 @@ class Email {
         $mail->Body = $content;
 
         // send email
-        $mail->send();
+        // $mail->send();
     }
 }
