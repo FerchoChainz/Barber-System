@@ -17,14 +17,14 @@ class Router{
 
     public function checkRoutes(){
 
-        session_start();
+        // session_start();
 
         $auth = $_SESSION['login'] ?? null;
 
 
 
         // protected routes array
-        $protected_routes =  ['/admin', '/property/create','/property/update','/property/delete',
+        $protected_routes =  ['', '/property/create','/property/update','/property/delete',
         '/seller/create', '/seller/update', '/seller/delete',
         '/blog/create'
     ];

@@ -50,8 +50,28 @@ class User extends ActiveRecord{
         return self::$errors;
     }
 
+    public function validateLogin(){
+        if(!$this->email){
+            self::$errors['error'][] = 'El email es obligatorio';
+        }
+
+        if(!$this->password){
+            self::$errors['error'][] = 'El password es obligatorio';
+        }
+
+        return self::$errors;
+    }
+
+    public function validateEmail(){
+        if(!$this->email){
+            self::$errors['error'][] = 'El email es obligatorio';
+        }
+        
+        return self::$errors;
+    }
+
     public function userExist(){
-        $query = "SELECT * FROM " . self::$table . " WHERE email = '" . $this->email . "' LIMIT 1";
+    $query = "SELECT * FROM " . self::$table . " WHERE email = '" . $this->email . "' LIMIT 1";
 
         $resultado = self::$db->query($query);
 
@@ -70,4 +90,29 @@ class User extends ActiveRecord{
     public function createToken(){
         $this->token = uniqid();
     }
+
+
+    public function checkPasswordAndVerify(string $password)  { // <- Acepta la contraseña simple
+        
+        $resultado = password_verify($password, $this->password); 
+
+        if(!$resultado || !$this->confirmado){
+            self::$errors['error'][] = 'Password incorrecto o tu cuenta no ha sido confirmada';
+        } else {
+            return true;
+        }
+    }
+
+    public function validateNewPassword(){
+        if(!$this->password){
+            self::$errors['error'][] = 'El password es obligatorio';
+        }
+
+        if(strlen($this->password) < 8) {
+            self::$errors['error'][] = 'El password debe tener al menos 8 caracteres';
+        }
+
+        return self::$errors;
+    }
+
 }
