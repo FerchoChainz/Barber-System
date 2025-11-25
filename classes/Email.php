@@ -70,7 +70,7 @@ class Email {
 
         // Define content
         $content = '<html>';
-        $content .= '<p><strong>Hola '. $this->nombre .'</strong>Has solicitado reestablecer tu contraseña. Da click en el siguiente enlace para hacerlo</p>';
+        $content .= '<p><strong>Hola '. $this->nombre .' </strong>Has solicitado reestablecer tu contraseña. Da click en el siguiente enlace para hacerlo</p>';
         $content .= "<p>Presiona aqui: <a href='http://localhost:3000/recover?token=" . $this->token . "'>Reestablece tu Password.</a></p>"; 
         $content .= "<p>Si tu no solicitaste esta cuenta, ignora el mensaje.</p>";
         $content .= "</html>";
