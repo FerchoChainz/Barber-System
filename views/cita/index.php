@@ -25,14 +25,17 @@
                     value="<?php echo $nombre;?>" disabled
                 >
             </div>
+
             <div class="campo">
                 <label for="fecha">Fecha</label>
-                <input type="date" name="fecha" id="fecha">
+                <input type="date" name="fecha" id="fecha" min="<?php echo date('Y-m-d', strtotime('+1 day')); ?>">
             </div>
+
             <div class="campo">
                 <label for="hora">Hora</label>
                 <input type="time" name="hora" id="hora">
             </div>
+
         </form>
     </div>
     <div id="paso-3" class="seccion">

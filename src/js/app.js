@@ -14,12 +14,17 @@ document.addEventListener('DOMContentLoaded',function() {
 })
 
 function initApp(){
-    mostrarSeccion();
-    tabs();
-    botonesPaginador();
+    mostrarSeccion(); // Muestra y oculta las secciones
+    tabs(); // cambia los tabs cuando damos click
+    botonesPaginador(); // agrega o quita los botones de anterior o siguiente
     paginaSiguiente();
     paginaAnterior();
-    consultarApi();
+    consultarApi(); // consulta la api
+
+    nombreCliente(); // Agrega el nombre del cliente en el objeto
+    seleccionarFecha(); // Agrega la fecha en el objeto
+    seleccionarHora(); // Agrega la hora en el objeto
+    mostrarResumen(); // Muestra el resumen de la cita
 }
 
 function mostrarSeccion() {
@@ -68,6 +73,7 @@ function botonesPaginador(){
     } else if (paso === 3){
         pagAnterior.classList.remove('ocultar');
         pagSiguiente.classList.add('ocultar');
+        mostrarResumen();
     } else {
         pagAnterior.classList.remove('ocultar');
         pagSiguiente.classList.remove('ocultar');
@@ -162,4 +168,81 @@ function seleccionServicio(servicio){
 
 
     console.log(cita);
+}
+
+function nombreCliente(){
+    const nombre = document.querySelector('#nombre').value;
+    cita.nombre = nombre;
+    console.log(cita);
+}
+
+function seleccionarFecha(){
+    const inputFecha = document.querySelector('#fecha');
+   inputFecha.addEventListener('input', function(e){
+
+    console.log(e.target.value);
+
+    const dia = new Date(e.target.value).getUTCDay();
+
+    if([6,0].includes(dia)){
+        e.target.value = '';
+        mostrarAlerta('Fines de semana no permitidos', 'error');
+    } else{
+        console.log('Correcto');
+        cita.fecha = e.target.value;
+    }
+    console.log(dia);
+   }) 
+}
+
+// seleccionar hora
+function seleccionarHora(){
+    const inputHora = document.querySelector('#hora');
+    inputHora.addEventListener('input', function(e){
+        const horaCita = e.target.value;
+        const hora= horaCita.split(':')[0];
+
+        if(hora < 10 || hora > 18){
+            mostrarAlerta('Hora no válida, debe ser entre 10:00 y 18:00', 'error');
+            e.target.value = '';
+        } else {
+            cita.hora = e.target.value;
+            console.log(cita);
+        }
+
+        console.log(hora);
+    })
+}
+
+function mostrarAlerta(mensaje, tipo){
+    // previene que se creen varias alertas
+    const alertaPrevia = document.querySelector('.alert ');
+    if(alertaPrevia) return;
+
+    const alerta = document.createElement('DIV');
+    alerta.textContent = mensaje;
+    alerta.classList.add('alert')
+    alerta.classList.add(tipo);
+
+    console.log(alerta);
+
+    const formulario = document.querySelector('#paso-2 p');
+    formulario.appendChild(alerta);
+
+    // eliminar alerta despues de 3 segundos
+    setTimeout(() => {
+        alerta.remove();
+    }, 3000);
+}
+
+function mostrarResumen(){
+    const resumen = document.querySelector('.contenido-resumen');
+    
+    if(Object.values(cita).includes('')){
+        console.log('hacen falta datos');
+    } else {
+        console.log('todo bien');
+    }
+
+
 }
