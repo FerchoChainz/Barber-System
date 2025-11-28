@@ -55,7 +55,6 @@ function tabs(){
     btns.forEach((boton) =>{
         boton.addEventListener('click', function(e){
             paso = parseInt(e.target.dataset.paso)
-            console.log(paso);
 
             mostrarSeccion();
             botonesPaginador();
@@ -180,7 +179,6 @@ function seleccionarFecha(){
     const inputFecha = document.querySelector('#fecha');
    inputFecha.addEventListener('input', function(e){
 
-    console.log(e.target.value);
 
     const dia = new Date(e.target.value).getUTCDay();
 
@@ -191,7 +189,6 @@ function seleccionarFecha(){
         console.log('Correcto');
         cita.fecha = e.target.value;
     }
-    console.log(dia);
    }) 
 }
 
@@ -209,8 +206,6 @@ function seleccionarHora(){
             cita.hora = e.target.value;
             console.log(cita);
         }
-
-        console.log(hora);
     })
 }
 
@@ -226,7 +221,6 @@ function mostrarAlerta(mensaje, tipo, elemento, desaparece = true){
     alerta.classList.add('alert')
     alerta.classList.add(tipo);
 
-    console.log(alerta);
 
     const referencia = document.querySelector(elemento);
     referencia.appendChild(alerta);
@@ -291,8 +285,22 @@ function mostrarResumen(){
     nombreCliente.innerHTML = `<span>Nombre:</span> ${nombre}`
 
 
+    // Formatear fecha (ES)
+    const fechaObj = new Date(fecha);
+    const mes = fechaObj.getMonth();
+    const dia = fechaObj.getDate() + 2;
+    const year = fechaObj.getFullYear();
+
+    const fechaUTC = new Date(Date.UTC(year,mes,dia));
+    
+    const opciones = {weekday: 'long', year:'numeric',month:'long',day:'numeric'}
+    const fechaFormateada = fechaUTC.toLocaleDateString('es-MX',opciones);
+    console.log(fechaFormateada);
+
     const fechaCita = document.createElement('P');
-    fechaCita.innerHTML = `<span>Fecha:</span> ${fecha}`
+    fechaCita.innerHTML = `<span>Fecha:</span> ${fechaFormateada}`
+
+
 
     const horaCita = document.createElement('P');
     horaCita.innerHTML = `<span>Hora:</span> ${hora} Horas`
