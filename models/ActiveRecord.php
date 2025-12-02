@@ -76,6 +76,8 @@ class ActiveRecord{
 
         // debbuger($query);
 
+        // return json_encode(['query' => $query]);
+
 
         $result = self::$db->query($query);
        return [
