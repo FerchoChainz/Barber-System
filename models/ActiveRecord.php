@@ -24,15 +24,17 @@ class ActiveRecord{
 
     
 
-    public function saveUpdate()
-    {
+    public function saveUpdate(){
+        $resultado = '';
         if (!is_null($this->id)) {
             // update register if exist 
-            $this->update();
+            $resultado = $this->update();
         } else {
             // create new register
-            $this->saveData();
+            $resultado = $this->saveData();
         }
+
+        return $resultado;
     }
 
     public function update()
@@ -80,7 +82,7 @@ class ActiveRecord{
         'result' => $result,
         'id' => self::$db->insert_id
        ];
-        // debbuger($result)
+        // debbuger($result);
     }
 
     // delete register

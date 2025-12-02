@@ -3,6 +3,7 @@ const pasoIncial = 1;
 const pasoFinal = 3;
 
 const cita = {
+    id: '',
     nombre: '',
     fecha: '',
     hora: '',
@@ -21,6 +22,7 @@ function initApp(){
     paginaAnterior();
     consultarApi(); // consulta la api
 
+    idCliente();
     nombreCliente(); // Agrega el nombre del cliente en el objeto
     seleccionarFecha(); // Agrega la fecha en el objeto
     seleccionarHora(); // Agrega la hora en el objeto
@@ -169,10 +171,13 @@ function seleccionServicio(servicio){
     console.log(cita);
 }
 
+function idCliente(){
+    cita.id = document.querySelector('#id').value;
+}
+
 function nombreCliente(){
-    const nombre = document.querySelector('#nombre').value;
-    cita.nombre = nombre;
-    console.log(cita);
+    cita.nombre = document.querySelector('#nombre').value;
+    // console.log(cita);
 }
 
 function seleccionarFecha(){
@@ -321,6 +326,31 @@ function mostrarResumen(){
 }
 
 // reservar cita
-function reservarCita(){
+async function reservarCita(){   
     
+    const {nombre, fecha, hora, servicios, id} = cita;
+
+    const idServicios = servicios.map(servicio => servicio.id);
+
+
+    const datos = new FormData();
+    datos.append('fecha',fecha);
+    datos.append('hora',hora);
+    datos.append('usuarioId',id)
+    datos.append('servicios',idServicios);
+
+    // console.log([...datos]);
+
+    // peticion hacia la api 
+    const url = 'http://localhost:3000/api/dates';
+    const response = await fetch(url, {
+        method: 'POST',
+        body: datos
+    });
+ 
+    // console.log(response);
+
+    const result = await response.json();
+
+    console.log(result);
 }
