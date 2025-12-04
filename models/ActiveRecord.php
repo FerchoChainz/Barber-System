@@ -205,6 +205,13 @@ class ActiveRecord{
         return (array_shift($result));
     }
 
+    // Plain sql query (Only use when the model methods aren't enough)
+    public static function SQL($query){
+
+        $result = self::consultSQL($query);
+        return $result;
+    }
+
 
     // HERE CONVERT ARRAYS TO OBJECTS
     public static function consultSQL($query)
