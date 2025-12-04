@@ -12,6 +12,14 @@ function s($html){
     return $s;
 }
 
+function isLast(string $actual, string $next):bool {
+    if($actual !== $next){
+        return true;
+    }
+    
+    return false;
+}
+
 // Check if user is auth 
 function isAuth(){
     if(!isset($_SESSION['login'])){
