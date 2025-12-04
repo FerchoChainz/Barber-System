@@ -2,6 +2,7 @@
 namespace Controllers;
 
 use Model\AdminDate;
+use Model\Date;
 use MVC\Router;
 
 class AdminController {
@@ -9,6 +10,9 @@ class AdminController {
     public static function index(Router $router)
     {
         session_start();
+
+        $fecha = Date('Y-m-d');
+
 
         // Consult BD
         $consulta = "SELECT citas.id, citas.hora, CONCAT( usuarios.nombre, ' ', usuarios.apellido) as cliente, ";
@@ -20,13 +24,14 @@ class AdminController {
         $consulta .= " ON citasServicios.citaId=citas.id ";
         $consulta .= " LEFT OUTER JOIN servicios ";
         $consulta .= " ON servicios.id=citasServicios.servicioId ";
-        // $consulta .= " WHERE fecha =  '${fecha}' ";
+        $consulta .= " WHERE fecha =  '$fecha' ";
 
         $citas = AdminDate::SQL($consulta);
 
         $router->render('admin/index', [
             'nombre' => $_SESSION['nombre'],
-            'citas' => $citas
+            'citas' => $citas,
+            'fecha'=>$fecha
         ]);
     }
 }

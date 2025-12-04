@@ -30,7 +30,7 @@
 
             <div class="campo">
                 <label for="fecha">Fecha</label>
-                <input type="date" name="fecha" id="fecha" min="<?php echo date('Y-m-d', strtotime('+1 day')); ?>">
+                <input type="date" name="fecha" id="fecha" min="<?php echo date('Y-m-d', strtotime('day')); ?>">
             </div>
 
             <div class="campo">
@@ -62,7 +62,8 @@
 <?php 
     $script = "
     <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
-    <script src='build/js/bundle.min.js'></script>
+
+    <script src='build/js/app.min.js'></script>
 
     "
 ?>

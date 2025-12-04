@@ -10,7 +10,9 @@
             <input
                 type="date"
                 id="fecha"
-                name="fecha">
+                name="fecha"
+                value="<?php echo $fecha; ?>"
+                >
         </div>
     </form>
 </div>
@@ -39,7 +41,7 @@
                 <?php } // Fin de if 
                     $total += $cita->precio;
                 ?>
-                    <p class="servicio"> <?php echo $cita->servicio . ": " . '$' . $cita->precio ?> </p>
+                    <p class="servicio"> <?php echo $cita->servicio . ": " . '$' . $cita->precio ?> </p>color: v.$azul;
 
                 <?php 
                     $actual = $cita->id;
@@ -55,8 +57,8 @@
             <?php } // Fin de foreach 
             ?>
     </ul>
-
-    <?php
-
-    ?>
 </div>
+
+<?php 
+    $script = "<script src='build/js/timePicker.min.js'></script>"
+?>
