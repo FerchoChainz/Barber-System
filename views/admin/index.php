@@ -57,6 +57,13 @@
 
                         <p class="total">Total: <span><?php echo $total ?></span></p>
 
+                        <!-- DELETE APPOINTMENTS -->
+                         <form action="/api/delete" method="POST" class="formulario">
+                            <input type="hidden" name="id" value="<?php echo $cita->id ?>">
+
+                            <input type="submit" class="boton-eliminar" value="Eliminar">
+                         </form>
+
                     <?php } // Fin de isLast ?>
 
 
