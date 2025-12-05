@@ -11,7 +11,15 @@ class AdminController {
     {
         session_start();
 
-        $fecha = Date('Y-m-d');
+        
+        $fecha = $_GET['date'] ?? $fecha = Date('Y-m-d');;
+        $fechas = explode('-', $fecha);
+        // debbuger($fecha);
+        if(!checkdate($fechas[1], $fechas[2], $fechas[0])){
+            header('Location: /404');
+        }
+
+        
 
 
         // Consult BD

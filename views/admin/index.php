@@ -17,6 +17,12 @@
     </form>
 </div>
 
+<?php  
+    if(count($citas) === 0){
+        echo '<h2>No hay citas en esta fecha.</h2>';
+    }
+?>
+
 <div id="citas-admin">
     <ul class="citas">
         <?php
@@ -41,7 +47,7 @@
                 <?php } // Fin de if 
                     $total += $cita->precio;
                 ?>
-                    <p class="servicio"> <?php echo $cita->servicio . ": " . '$' . $cita->precio ?> </p>color: v.$azul;
+                    <p class="servicio"> <?php echo $cita->servicio . ": " . '$' . $cita->precio ?> </p>
 
                 <?php 
                     $actual = $cita->id;
