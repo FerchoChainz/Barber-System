@@ -12,6 +12,8 @@ class ServicioController {
     public static function index(Router $router){
         session_start();
 
+        isAdmin();
+
         $servicios = Service::all();
 
         $router->render('services/index', [
@@ -23,6 +25,7 @@ class ServicioController {
     public static function create(Router $router){
 
         session_start();
+        isAdmin();
 
         $servicio = new Service();
         $errors = [];
@@ -52,11 +55,23 @@ class ServicioController {
     public static function update(Router $router){
 
         session_start();
+        isAdmin();
 
         $servicio = Service::find($_GET['id']);
         $errors = [];
 
-        if($_SERVER['REQUEST_METHOD'] === 'POST'){}
+
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+            $servicio->sync($_POST);
+
+            $errors = $servicio->validate();
+
+            if(empty($errors)){
+                $servicio->saveUpdate();
+
+                header('Location: /servicios');
+            }
+        }
 
         $router->render('services/update', [
             'nombre' => $_SESSION['nombre'],
@@ -67,7 +82,15 @@ class ServicioController {
     public static function delete(Router $router){
 
         session_start();
+        isAdmin();
 
-        if($_SERVER['REQUEST_METHOD'] === 'POST'){}
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+            $id = $_POST['id'];
+
+            $servicio = Service::find($id);
+            $servicio->delete();
+
+            header('Location: /servicios');
+        }
     }
 }

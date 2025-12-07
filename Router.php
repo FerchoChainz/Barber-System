@@ -24,10 +24,7 @@ class Router{
 
 
         // protected routes array
-        $protected_routes =  ['', '/property/create','/property/update','/property/delete',
-        '/seller/create', '/seller/update', '/seller/delete',
-        '/blog/create'
-    ];
+        $protected_routes =  [''];
         
         $actualURL = $_SERVER['PATH_INFO'] ?? '/';
         $method = $_SERVER['REQUEST_METHOD'];
