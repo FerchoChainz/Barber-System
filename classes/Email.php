@@ -21,11 +21,11 @@ class Email {
 
         // Config SMTP
         $mail->isSMTP();
-        $mail->Host = 'sandbox.smtp.mailtrap.io';
+        $mail->Host = $_ENV['MAIL_HOST'];
         $mail->SMTPAuth = true;
-        $mail->Port = 2525;
-        $mail->Username = 'db83d6cd72d216';
-        $mail->Password = '008a6098da2dd2';
+        $mail->Port = $_ENV['MAIL_PORT'];
+        $mail->Username = $_ENV['MAIL_USER'];
+        $mail->Password = $_ENV['MAIL_PSWD'];
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // o 'tls'
 
         $mail->setFrom('test@demomailtrap.co', 'BarberStore');
@@ -38,7 +38,7 @@ class Email {
         // Define content
         $content = '<html>';
         $content .= '<p><strong>Hola '. $this->nombre .'</strong> Has creado tu cuenta en BarberS. Confirma tu cuenta dando click en el siguiente enlace</p>';
-        $content .= "<p>Presiona aqui: <a href='http://localhost:3000/confirm-account?token=" . $this->token . "'>Confirma tu cuenta </a></p>"; 
+        $content .= "<p>Presiona aqui: <a href='" . $_ENV['APP_URL']  . "/confirm-account?token=" . $this->token . "'>Confirma tu cuenta </a></p>"; 
         $content .= "<p>Si tu no solicitaste esta cuenta, ignora el mensaje.</p>";
         $content .= "</html>";
 
@@ -54,11 +54,11 @@ class Email {
 
         // Config SMTP
         $mail->isSMTP();
-        $mail->Host = 'sandbox.smtp.mailtrap.io';
+        $mail->Host = $_ENV['MAIL_HOST'];
         $mail->SMTPAuth = true;
-        $mail->Port = 2525;
-        $mail->Username = 'db83d6cd72d216';
-        $mail->Password = '008a6098da2dd2';
+        $mail->Port = $_ENV['MAIL_PORT'];
+        $mail->Username = $_ENV['MAIL_USER'];
+        $mail->Password = $_ENV['MAIL_PSWD'];
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // o 'tls'
 
         $mail->setFrom('test@demomailtrap.co', 'BarberStore');
@@ -71,7 +71,7 @@ class Email {
         // Define content
         $content = '<html>';
         $content .= '<p><strong>Hola '. $this->nombre .' </strong>Has solicitado reestablecer tu contraseña. Da click en el siguiente enlace para hacerlo</p>';
-        $content .= "<p>Presiona aqui: <a href='http://localhost:3000/recover?token=" . $this->token . "'>Reestablece tu Password.</a></p>"; 
+        $content .= "<p>Presiona aqui: <a href='" . $_ENV['APP_URL']  . "/recover?token=" . $this->token . "'>Reestablece tu Password.</a></p>"; 
         $content .= "<p>Si tu no solicitaste esta cuenta, ignora el mensaje.</p>";
         $content .= "</html>";
 

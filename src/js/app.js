@@ -107,7 +107,7 @@ function paginaSiguiente() {
 // consulta API en backend de php
 async function consultarApi() {
   try {
-    const url = "http://localhost:3000/api/services";
+    const url = "/api/services";
     const resultado = await fetch(url);
     const servicios = await resultado.json();
     mostrarServicios(servicios);
@@ -333,7 +333,7 @@ async function reservarCita() {
 
   try {
     // peticion hacia la api
-    const url = "http://localhost:3000/api/dates";
+    const url = '/api/dates';
     const response = await fetch(url, {
       method: "POST",
       body: datos,

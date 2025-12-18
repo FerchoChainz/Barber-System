@@ -26,7 +26,7 @@ class Router{
         // protected routes array
         $protected_routes =  [''];
         
-        $actualURL = $_SERVER['PATH_INFO'] ?? '/';
+        $actualURL = strtok($_SERVER['REQUEST_URI'], '?');
         $method = $_SERVER['REQUEST_METHOD'];
         
 
